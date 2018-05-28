@@ -1,5 +1,5 @@
 # About NamSor Algolia Connector
-Algolia is a SaaS search engine for any business or website. You can easily create an account with a live demo : the sandbox will allow you to search actors names and rating. 
+Algolia is a SaaS search engine for any business or website. You can easily create an account with a live demo : the sandbox will allow you to search actors names and rating. This demo database does not include gender information.
 
 This connector is an example of using NamSor API to enrich the Algolia search with gender information : break down your search by gender (actors, actresses). NamSor Gender API will be called to set a 'likelyGender' attribute to all actors (except those whose gender is manually defined in a 'realGender' attribute).
 
