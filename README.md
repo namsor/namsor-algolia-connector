@@ -26,6 +26,6 @@ To create a facet, simply add the 'likelyGender' attribute in DISPLAY>FACETTING
 
 ## Viewing the demo search UI 
 
-The demo search UI includes a gender facet and will show women actresses first (with a name starting with JO).
+The [demo search UI](http://www.namsor.com/algolia/) includes a gender facet and will show women actresses first (with a name starting with JO).
 
 ![genderized_search](https://github.com/namsor/namsor-algolia-connector/blob/master/img/genderized_search.png)
