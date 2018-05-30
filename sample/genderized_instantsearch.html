@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
   <head>
+	<title>Genderizing Search as a Service with Algolia and NamSor API - Women First !</title>
+	<meta name=”description” content=”Women often come second to men in search engine results. Algolia with NamSor connector allow customizing search ranking to redress common gender biases.”>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-
     <script src="https://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/fontawesome/4.3.0/css/font-awesome.min.css" />
@@ -11,9 +12,21 @@
   </head>
   <body>
 
+	<H1>Genderizing Search as a Service</H1>
+    <p>Women often come second to men in search engine results : authors, actors, film makers, artists, musicians, business people ... 
+	Elena Rossini is taking up the task of making 
+	<A HREF="https://elenarossini.com/2016/04/lets-make-female-film-directors-more-visible/" TARGET="top">female film directors more visible</A>.
+		In 2017, she started creating <A HREF="http://giphy.com/channel/_elena" TARGET="top">GIFs of women and minority directors</A>, with the aim of promoting their visibility.
+		We often see dashboards showing the <A HREF="http://www.gendergapgrader.com/hello/" TARGET="top">gender gap</A> in various industries. But what if we could search IMDB, the Internet Movie Database, and directly visualize the gender biases? 
+		Would it affect the way we browse for films, if women film directors or actresses would come out first in the ranking algorithms ? 
+	</p>
+	<P>
+		This live demo is using <A HREF="http://www.algolia.com/" TARGET="top">Algolia</A> Search as a Service with <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">NamSor gender connector</A>. In a real world implementation, you could search films by year, film maker, actor/actress, country ... 	
+	</P>
     <section class="panel">
       <header class="panel-heading">
         <div class="search_box">
+          <form action="#" method="get">
           <form action="#" method="get">
             <input autocomplete="off" class="autocomplete" id="q" placeholder="Start typing" type="text" spellcheck="false"/>
             <div class="searchbutton">
@@ -34,6 +47,12 @@
       <div id="hits"></div>
     </div>
 
+    <div class="footer">
+		<IMG class="logo" SRC="http://gendergapgrader.com/file/2014/08/ggg-logo-gradient-35px.png" />
+		<IMG class="logo" SRC="https://www.algolia.com/static_assets/images/press/downloads/search-by-algolia.png" />
+    </div>
+
+	
     <script type="text/javascript">
       /**
        * This example uses the raw JavaScript client to build an instant search result page.

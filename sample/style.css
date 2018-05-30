@@ -1,3 +1,4 @@
+
 form {
   margin: 0;
   padding: 0;
@@ -136,7 +137,24 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
-
+.facets-wrapper {
+	width: 20%; 
+	float:left;
+}
+.hits-wrapper {
+	width: 80%; 
+	float:right;
+}
+.logo {
+  display:block;
+    margin:auto;
+}
+.footer {
+	position: fixed;
+    bottom: 0;
+	align: center;
+    width: 100%;
+}
 @media (max-width: 500px) {
   body {
     margin: 0px;
