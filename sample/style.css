@@ -157,10 +157,10 @@ body {
 }
 @media (max-width: 500px) {
   body {
-    margin: 0px;
+    margin: 10px;
   }
   .panel {
-    margin-top: 0px;
+    margin-top: 10px;
     width: 100%;
   }
   #q {
