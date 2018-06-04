@@ -20,17 +20,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This example builds on top of Algolia's standard demo, allowing to search
- * actors based on their name and ranking. We use NamSor API to infer the likely
- * gender of the actor / actress (if that gender is not already indexed in
+ * This example builds on top of IMDB5000 film database, allowing to search
+ * film directors and movies based on their name and ranking. We use NamSor API to infer the likely
+ * gender of the movie director (if that gender is not already indexed in
  * 'realGender'). That allows the search to use a genderized ranking method, for
- * example to return Actresses first. Also, you can create a facet on gender
- * that will dynamically show the number of male/female actors for a given
- * search query, and allow filtering based on gender.
+ * example to return female film directors first.
  *
  * @author NamSor SAS
  */
-public class AlgoliaAPIClient {
+public class AlgoliaAPIClient_MovieDirectors {
 
     private final String NamSorAPI_xChannelSecret;
     private final String NamSorAPI_xChannelUser;
@@ -44,7 +42,7 @@ public class AlgoliaAPIClient {
      * @param AlgoliaAPI_applicationID
      * @param AlgoliaAPI_adminAPIKey 
      */
-    public AlgoliaAPIClient(String NamSorAPI_xChannelSecret, String NamSorAPI_xChannelUser, String AlgoliaAPI_applicationID, String AlgoliaAPI_adminAPIKey) {
+    public AlgoliaAPIClient_MovieDirectors(String NamSorAPI_xChannelSecret, String NamSorAPI_xChannelUser, String AlgoliaAPI_applicationID, String AlgoliaAPI_adminAPIKey) {
         this.NamSorAPI_xChannelSecret = NamSorAPI_xChannelSecret;
         this.NamSorAPI_xChannelUser = NamSorAPI_xChannelUser;
         this.AlgoliaAPI_applicationID = AlgoliaAPI_applicationID;
@@ -63,36 +61,52 @@ public class AlgoliaAPIClient {
         ParseApi namsorParseAPI = new ParseApi();
         GenderApi namsorGenderAPI = new GenderApi();
 
-        Index<Actor> index = algoliaAPI.initIndex("getstarted_actors", Actor.class);
+        Index<Movie> index = algoliaAPI.initIndex("film_directors", Movie.class);
 
-        IndexIterable<Actor> iterable = index.browse(
+        IndexIterable<Movie> iterable = index.browse(
                 new Query()
         );
-        for (Actor actor : iterable) {
-            String fullName = actor.getName();
+        int i = 0;
+        for (Movie movie : iterable) {
+            
+            /*if( movie.getLikelyGender() != null || movie.getDirectorName() == null || movie.getDirectorName().trim().isEmpty()) {
+                Logger.getLogger(getClass().getName()).info("Skip : "+movie.getDirectorName()+" - "+movie.getMovieTitle());
+                continue;
+            }*/
+            i++;
+            if(i<573) {
+                continue;
+            }
+            Logger.getLogger(getClass().getName()).info("i="+i+" "+movie.getDirectorName()+" - "+movie.getMovieTitle());
+            
+            String fullName = movie.getDirectorName();
             try {
                 OutputParsedName parsed = namsorParseAPI.parseName(fullName, NamSorAPI_xChannelSecret, NamSorAPI_xChannelUser);
                 OutputNameForGender gendered = namsorGenderAPI.extractGender(parsed.getFirstName(), parsed.getLastName(), NamSorAPI_xChannelSecret, NamSorAPI_xChannelUser);
-                if (actor.getRealGender() != null && actor.getRealGender().equals(gendered.getGender())) {
+                long gross = 1;
+                if(movie.getGross()!=null) {
+                    gross = movie.getGross();
+                }
+                if (movie.getRealGender() != null && movie.getRealGender().equals(gendered.getGender())) {
                     // update based on real gender (not using name inferrence)
                     Logger.getLogger(getClass().getName()).info("Full name " + fullName + " using real gender (not using name inferrence)");
-                    double genderScale = (actor.getRealGender().toLowerCase().startsWith("m") ? -1 : +1);
-                    Actor actorUpdate = new Actor();
-                    actorUpdate.setLikelyGender(actor.getRealGender());
-                    actorUpdate.setGenderScale(genderScale);
-                    actorUpdate.setRankingGendered(actor.getRating() * genderScale);
-                    index.partialUpdateObject(actor.getObjectID(), actorUpdate);
+                    double genderScale = (movie.getRealGender().toLowerCase().startsWith("m") ? -1 : +1);
+                    Movie movieUpdate = new Movie();
+                    movieUpdate.setLikelyGender(movie.getRealGender());
+                    movieUpdate.setGenderScale(genderScale);
+                    movieUpdate.setRankingGendered(gross * genderScale);
+                    index.partialUpdateObject(movie.getObjectID(), movieUpdate);
                 } else {
                     // update inferred gender from NamSor API result
                     Logger.getLogger(getClass().getName()).info("Full name " + fullName + " parsed into " + parsed.getFirstName() + ", " + parsed.getLastName() + " inferred gender " + gendered.getGender());
-                    Actor actorUpdate = new Actor();
-                    actorUpdate.setLikelyGender(gendered.getGender());
-                    actorUpdate.setGenderScale(gendered.getScale());
-                    actorUpdate.setRankingGendered(actor.getRating() * gendered.getScale());
-                    index.partialUpdateObject(actor.getObjectID(), actorUpdate);
+                    Movie movieUpdate = new Movie();
+                    movieUpdate.setLikelyGender(gendered.getGender());
+                    movieUpdate.setGenderScale(gendered.getScale());
+                    movieUpdate.setRankingGendered(gross * gendered.getScale());
+                    index.partialUpdateObject(movie.getObjectID(), movieUpdate);
                 }
             } catch (ApiException ex) {
-                Logger.getLogger(AlgoliaAPIClient.class.getName()).log(Level.SEVERE, "Failed to parse " + fullName, ex);
+                Logger.getLogger(AlgoliaAPIClient_MovieDirectors.class.getName()).log(Level.SEVERE, "Failed to parse " + fullName, ex);
             }
         }
     }
@@ -108,10 +122,10 @@ public class AlgoliaAPIClient {
             String adminAPIKey="<your adminAPIKey>"; // your Admin API Key
 
             // Genderize all Actor into Actor/Actresses (except those with a realGender attribute)
-            AlgoliaAPIClient main = new AlgoliaAPIClient(xChannelSecret,xChannelUser,applicationID, adminAPIKey );
+            AlgoliaAPIClient_MovieDirectors main = new AlgoliaAPIClient_MovieDirectors(xChannelSecret,xChannelUser,applicationID, adminAPIKey );
             main.run();
         } catch (AlgoliaException ex) {
-            Logger.getLogger(AlgoliaAPIClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlgoliaAPIClient_MovieDirectors.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -17,11 +17,10 @@
 	Elena Rossini is taking up the task of making 
 	<A HREF="https://elenarossini.com/2016/04/lets-make-female-film-directors-more-visible/" TARGET="top">female film directors more visible</A>.
 		In 2017, she started creating <A HREF="http://giphy.com/channel/_elena" TARGET="top">GIFs of women and minority directors</A>, with the aim of promoting their visibility.
-		We often see dashboards showing the <A HREF="http://www.gendergapgrader.com/hello/" TARGET="top">gender gap</A> in various industries. But what if we could search IMDB, the Internet Movie Database, and directly visualize the gender biases? 
-		Would it affect the way we browse for films, if women film directors or actresses would come out first in the ranking algorithms ? 
+		What if we could search IMDB (the Internet Movie Database), with an inverted gender bias? Would it affect the way we browse for films, if women film directors were to come first in ranking algorithms ? 
 	</p>
 	<P>
-		This live demo is using <A HREF="http://www.algolia.com/" TARGET="top">Algolia</A> Search as a Service with <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">NamSor gender connector</A> to enrich <A HREF="https://blog.namsor.com/2018/01/31/understanding-namsor-api-precision-for-gender-inference/" TARGET="top">likely gender</A> based on actors and actresses names. In a real world implementation, you could search films by year, film maker, actor/actress, country ... 	
+		A live demo using <A HREF="http://www.algolia.com/" TARGET="top">Algolia</A> Search as a Service with <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">NamSor gender connector</A> to enrich <A HREF="https://blog.namsor.com/2018/01/31/understanding-namsor-api-precision-for-gender-inference/" TARGET="top">likely gender</A> based on personal names. Source data : <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">IMDB-5000</A>.
 	</P>
     <section class="panel">
       <header class="panel-heading">
@@ -48,7 +47,7 @@
     </div>
 
     <div class="footer">
-		<IMG class="logo" SRC="http://gendergapgrader.com/file/2014/08/ggg-logo-gradient-35px.png" />
+		<IMG class="logo" SRC="img/ggg-logo-gradient-35px.png" />
 		<IMG class="logo" SRC="https://www.algolia.com/static_assets/images/press/downloads/search-by-algolia.png" />
     </div>
 
@@ -68,7 +67,7 @@
         // Replace the following values by your ApplicationID and ApiKey.
         var client = algoliasearch('1UP5ZVW1LS', '2cf1f3ea36578242558a9311d90e9621');
         // Replace the following value by the name of the index you want to query.
-        var index = client.initIndex('getstarted_actors');
+        var index = client.initIndex('film_directors');
 
         $inputfield.keyup(function() {
           search();
