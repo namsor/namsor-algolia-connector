@@ -13,14 +13,14 @@
   <body>
 
 	<H1>Genderizing Search as a Service</H1>
-    <p>Women often come second to men in search engine results : authors, actors, film makers, artists, musicians, business people ... 
-	Elena Rossini is taking up the task of making 
+    <p class="first-paragraph">Women often come second to men in search engine results : authors, actors, film makers, artists, musicians, business people .. <a href="#" class="first-paragraph-link">Read More</a><span class="span-paragraph">
+	Elena Rossini is taking up the task of making
 	<A HREF="https://elenarossini.com/2016/04/lets-make-female-film-directors-more-visible/" TARGET="top">female film directors more visible</A>.
 		In 2017, she started creating <A HREF="http://giphy.com/channel/_elena" TARGET="top">GIFs of women and minority directors</A>, with the aim of promoting their visibility.
 		What if we could search IMDB (the Internet Movie Database), with an inverted gender bias? Would it affect the way we browse for films, if women film directors were to come first in ranking algorithms ? 
-	</p>
+	</span></p>
 	<P>
-		A live demo using <A HREF="http://www.algolia.com/" TARGET="top">Algolia</A> Search as a Service with <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">NamSor gender connector</A> to enrich <A HREF="https://blog.namsor.com/2018/01/31/understanding-namsor-api-precision-for-gender-inference/" TARGET="top">likely gender</A> based on personal names. Source data : <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">IMDB-5000</A>.
+		<span class="span-paragraph2"> A live demo using <A HREF="http://www.algolia.com/" TARGET="top">Algolia</A> Search as a Service with <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">NamSor gender connector</A> to enrich <A HREF="https://blog.namsor.com/2018/01/31/understanding-namsor-api-precision-for-gender-inference/" TARGET="top">likely gender</A> based on personal names.</span> Source data : <A HREF="https://github.com/namsor/namsor-algolia-connector" TARGET="top">IMDB-5000</A>.
 	</P>
     <section class="panel">
       <header class="panel-heading">
@@ -36,14 +36,16 @@
       </header>
     </section>
 
-    <div class="facets-wrapper">
-      <h1>Facets</h1>
-      <div id="facets"></div>
-    </div>
-	
-    <div class="hits-wrapper">
-      <h1>Results</h1>
-      <div id="hits"></div>
+    <div class="middle-wrapper">
+		<div class="facets-wrapper">
+		  <h1>Facets</h1>
+		  <div id="facets"></div>
+		</div>
+		
+		<div class="hits-wrapper">
+		  <h1>Results</h1>
+		  <div id="hits"></div>
+		</div>
     </div>
 
     <div class="footer">
@@ -139,6 +141,10 @@
           }
           $('#facets').html(facets);
         }
+		$('.first-paragraph-link').on('click', function () {
+			$(".span-paragraph,.span-paragraph2").show("fast");
+			$(this).hide();
+		});
       });
     </script>
 
